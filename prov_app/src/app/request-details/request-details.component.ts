@@ -20,6 +20,12 @@ export class RequestDetailsComponent implements OnInit {
   position = ""
   email = ""
   role = ""
+  adminName = ""
+  adminMatricule = ""
+  adminPosition = ""
+  adminEmail = ""
+  adminRole = ""
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.requestId = params.get('id')!;
@@ -32,11 +38,11 @@ export class RequestDetailsComponent implements OnInit {
       const decodedPayload = atob(token.split('.')[1]);
       const userData = JSON.parse(decodedPayload);
       console.log(userData)
-      this.fullName = userData.fullName
-      this.matricule = userData.matricule
-      this.position = userData.position
-      this.email = userData.email
-      this.role = userData.role
+      this.adminName = userData.fullName
+      this.adminMatricule = userData.matricule
+      this.adminPosition = userData.position
+      this.adminEmail = userData.email
+      this.adminRole = userData.role
     }
   }
 

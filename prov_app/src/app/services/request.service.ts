@@ -26,9 +26,15 @@ getRequestsByUserId(userId: string): Observable<any> {
 }
 
 getRequestById(id: string): Observable<any> {
-  const token = localStorage.getItem('token'); // Adjust based on where you store the token
+  const token = localStorage.getItem('token');
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.get<any>(`${this.apiUrl}/${id}`, { headers });
+}
+
+getRequests(): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.get<any>(`${this.apiUrl}`, {headers});
 }
 
 }

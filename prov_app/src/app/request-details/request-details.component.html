@@ -6,23 +6,34 @@
       <div class="logo"></div>
       <h3>Provision App</h3>
     </div>
-    <p style="font-size:large; font-weight: bold; margin: 0">{{fullName}}</p>
-    <div class="menu">
-      <a routerLink="/my-requests">My Requests</a>
-      <a routerLink="/my-servers">My Servers</a>
-      <a href="">My Profile</a>
+    <div>
+      <p class="text-center" style="font-size:large; font-weight: bold; margin: 0">{{adminName}}</p>
+      <p class="text-center" style="font-size:large; font-weight: bold; margin: 0">{{adminMatricule}}</p>
     </div>
+    @if(adminRole === ""){
+      <div class="menu">
+        <a routerLink="/my-requests">My Requests</a>
+        <a routerLink="/my-servers">My Servers</a>
+        <a href="">My Profile</a>
+      </div>
+    }
+    @if(adminRole === "GeneralSpecAdmin") {
+      <div class="menu">
+        <p style="font-weight: bold;">{{adminRole}}</p>
+      </div>
+    }
   </div>
 
-  <h3 class="mb-4">Server Details</h3>
+  @if(adminRole === "GeneralSpecAdmin") {
+    <p class="mb-4" style="color: orange;"> <i class="fa fa-bell me-2"></i> {{requestDetails.fullName}} has requested a server !</p>
+  }
 
   <div class="my-5">
     <h3 style="font-weight: 500; font-size: 20px; margin-bottom: 15px;">* Requester details</h3>
     <div class="ms-4">
-      <p><span>Full name:</span>{{fullName}}</p>
-      <p><span>Email address:</span>{{email}}</p>
-      <p><span>Matricule:</span>{{matricule}}</p>
-      <p><span>Position:</span>{{position}}</p>
+      <p><span>Full name:</span>{{requestDetails.fullName}}</p>
+      <p><span>Matricule:</span>{{requestDetails.matricule}}</p>
+      <p><span>Position:</span>{{requestDetails.position}}</p>
     </div>
   </div>
 
@@ -44,7 +55,7 @@
     </div>
   </div>
 
-  @if(role != "") {
+  @if(adminRole != "") {
     <div>
       <div class="d-flex align-items-center justify-content-center mt-4">
         <button class="me-2 btn button-approve">Approve request</button>

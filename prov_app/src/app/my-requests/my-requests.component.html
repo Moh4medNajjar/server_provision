@@ -10,14 +10,26 @@
       <p class="text-center" style="font-size:large; font-weight: bold; margin: 0">{{ fullName }}</p>
       <p class="text-center" style="font-size:large; font-weight: bold; margin: 0">Matricule: {{ matricule }}</p>
     </div>
-    <div class="menu">
-      <a routerLink="/my-requests">My Requests</a>
-      <a routerLink="/my-servers">My Servers</a>
-      <a href="">My Profile</a>
-    </div>
+    @if(role === ""){
+      <div class="menu">
+        <a routerLink="/my-requests">My Requests</a>
+        <a routerLink="/my-servers">My Servers</a>
+        <a href="">My Profile</a>
+      </div>
+    }
+    @if(role === "GeneralSpecAdmin") {
+      <div class="menu">
+        <p style="font-weight: bold;">{{this.role}}</p>
+      </div>
+    }
   </div>
 
-  <h3>My Requests</h3>
+  @if(role === "") {
+    <h3>My Requests</h3>
+  }
+  @if(role !== "") {
+    <h3>Incoming Requests ({{items.length}})</h3>
+  }
   <div class="d-flex justify-content-between align-items-center my-4">
     <div class="top-table">
       <input type="search" placeholder="Find request.." class="me-3" [(ngModel)]="searchQuery" (input)="onSearch()" />
@@ -27,17 +39,19 @@
       </div>
     </div>
 
-    <div class="button" routerLink="/new-request">
-      Create Request
-      <i class="fa fa-plus ms-1"></i>
-    </div>
+    @if(role === "") {
+      <div class="button" routerLink="/new-request">
+        Create Request
+        <i class="fa fa-plus ms-1"></i>
+      </div>
+    }
   </div>
 
   <div class="table-container" style="height: 491px; overflow-y: scroll;">
     <table>
       <thead>
         <tr>
-          <th>#</th> <!-- Index Column -->
+          <th>#</th>
           <th (click)="sortTable('vmName')">
             Name
             <i class="fa fa-sort" *ngIf="sortColumn === 'vmName'"></i>
@@ -64,8 +78,7 @@
               {{ item.status }}
             </td>
             <td>
-              <i class="fa-solid fa-arrow-up-right-from-square me-3" [routerLink]="['/request-details', item._id]"></i>
-              <i class="fa-solid fa-trash-can"></i>
+              <i class="fa-solid fa-arrow-up-right-from-square ms-4" [routerLink]="['/request-details', item._id]"></i>
             </td>
           </tr>
         }

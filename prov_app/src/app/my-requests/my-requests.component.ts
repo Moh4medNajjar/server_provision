@@ -58,22 +58,40 @@ export class MyRequestsComponent {
   fullName = ""
   matricule = ""
   position = ""
+  role = ""
   ngOnInit() {
-    // Check if token exists after component initialization
     const token = this.authService.getToken();
     if (token) {
-      // Extract user data (consider using a secure backend API instead)
       const decodedPayload = atob(token.split('.')[1]);
       const userData = JSON.parse(decodedPayload);
       console.log(userData)
       this.fullName = userData.fullName
       this.matricule = userData.matricule
       this.position = userData.position
-      // Fetch requests by user ID
-      this.fetchRequestsByUserId(userData.id);
+      this.role = userData.role
+      if (this.role === "GeneralSpecAdmin") {
+        this.fetchAllRequests()
+      }
+      else {
+        this.fetchRequestsByUserId(userData.id);
+      }
 
 
     }
+  }
+
+
+  fetchAllRequests() {
+    this.requestService.getRequests().subscribe(
+      (data) => {
+        this.items = data;
+        this.filteredItems = [...this.items];
+        console.log('Requests fetched successfully:', data);
+      },
+      (error) => {
+        console.error('Error fetching requests:', error);
+      }
+    );
   }
 
   fetchRequestsByUserId(userId: string) {

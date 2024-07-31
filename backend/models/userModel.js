@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     role: { type: String, enum: ['GeneralSpecAdmin', 'NetworkAdmin', 'SecurityAdmin', 'SuperAdmin', ''], default: '' },
     permissions: {
         type: [String],
-        enum: ['CREATE_USER', 'DELETE_USER', 'createRequest', 'approveRequest', 'assignNetwork', 'checkSecurity', 'triggerPlaybooks', 'manageUsers', 'viewLogs'],
+        // enum: ['CREATE_USER', 'DELETE_USER', 'createRequest', 'approveRequest', 'assignNetwork', 'checkSecurity', 'triggerPlaybooks', 'manageUsers', 'viewLogs'],
         default: []
     }
 });
