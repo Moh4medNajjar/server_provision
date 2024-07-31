@@ -25,5 +25,8 @@ createRequest(requestData: any): Observable<any> {
   return this.http.post<any>(this.apiUrl, requestData, { headers });
 }
 
+getRequestsByUserId(userId: string): Observable<any> {
+  return this.http.get(`${this.apiUrl}/user/${userId}`);
+}
 
 }

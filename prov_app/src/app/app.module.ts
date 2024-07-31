@@ -18,6 +18,7 @@ import { AdminDetailsComponent } from './admin-details/admin-details.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -43,7 +44,7 @@ import { HttpClientModule } from '@angular/common/http'; // Import HttpClientMod
     RouterModule,
     HttpClientModule
   ],
-  providers: [AuthService, ],
+  providers: [AuthService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

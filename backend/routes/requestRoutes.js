@@ -10,6 +10,9 @@ router.get('/:id', authMiddleware, requestController.getRequestById);
 router.put('/:id', authMiddleware, requestController.updateRequest);
 router.delete('/:id', authMiddleware, requestController.deleteRequest);
 
+router.get('/user/:userId', requestController.getRequestsByUserId);
+
+
 router.put('/:id/approve/general', authMiddleware, roleMiddleware('GeneralSpecAdmin'), requestController.approveByGeneralSpecAdmin);
 router.put('/:id/approve/network', authMiddleware, roleMiddleware('NetworkAdmin'), requestController.approveByNetworkAdmin);
 router.put('/:id/approve/security', authMiddleware, roleMiddleware('SecurityAdmin'), requestController.approveBySecurityAdmin);

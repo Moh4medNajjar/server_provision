@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { RequestService } from '../services/request.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-my-requests',
@@ -7,22 +9,9 @@ import { AuthService } from '../services/auth.service';
   styleUrl: './my-requests.component.scss'
 })
 export class MyRequestsComponent {
-  constructor(private authService: AuthService) { }
-  items = [
-    { name: 'John Doe', submissionDate: '2024-07-28', status: 'Pending' },
-    { name: 'Jane Smith', submissionDate: '2024-07-27', status: 'Approved' },
-    { name: 'Mike Johnson', submissionDate: '2024-07-26', status: 'Rejected' },
-    { name: 'Emily Davis', submissionDate: '2024-07-25', status: 'Approved' },
-    { name: 'Robert Brown', submissionDate: '2024-07-24', status: 'Pending' },
-    { name: 'Linda Clark', submissionDate: '2024-07-23', status: 'Rejected' },
-    { name: 'James Wilson', submissionDate: '2024-07-22', status: 'Pending' },
-    { name: 'Patricia Martinez', submissionDate: '2024-07-21', status: 'Approved' },
-    { name: 'William Taylor', submissionDate: '2024-07-20', status: 'Rejected' },
-    { name: 'Jessica Anderson', submissionDate: '2024-07-19', status: 'Pending' },
-    { name: 'Aessica Anderson', submissionDate: '2024-07-19', status: 'Pending' }
-  ];
+  constructor(private authService: AuthService, private requestService: RequestService, private datePipe: DatePipe ) { }
 
-  sortColumn: string = 'name';
+  sortColumn: string = 'vmName';
   sortDirection: boolean = true;
 
   sortTable(column: string) {
@@ -30,10 +19,10 @@ export class MyRequestsComponent {
     this.sortColumn = column;
     this.filteredItems.sort((a, b) => {
       let comparison = 0;
-      if (this.sortColumn === 'name') {
-        comparison = a.name.localeCompare(b.name);
-      } else if (this.sortColumn === 'submissionDate') {
-        comparison = new Date(b.submissionDate).getTime() - new Date(a.submissionDate).getTime();
+      if (this.sortColumn === 'vmName') {
+        comparison = a.vmName.localeCompare(b.vmName);
+      } else if (this.sortColumn === 'desired_start_date') {
+        comparison = new Date(b.desired_start_date).getTime() - new Date(a.desired_start_date).getTime();
       } else if (this.sortColumn === 'status') {
         const statusOrder: { [key: string]: number } = { 'Approved': 1, 'Pending': 2, 'Rejected': 3 };
         comparison = (statusOrder[a.status as keyof typeof statusOrder] - statusOrder[b.status as keyof typeof statusOrder]);
@@ -52,17 +41,20 @@ export class MyRequestsComponent {
         return 'circle-rejected';
       default:
         return '';
+      }
     }
-  }
 
-  filteredItems = [...this.items];
-  searchQuery: string = '';
+    items: any[] = [];
+    filteredItems = [...this.items];
+
+
 
   onSearch() {
     this.filteredItems = this.items.filter(item =>
-      item.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      item.vmName.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
   }
+
   fullName = ""
   matricule = ""
   position = ""
@@ -74,11 +66,32 @@ export class MyRequestsComponent {
       const decodedPayload = atob(token.split('.')[1]);
       const userData = JSON.parse(decodedPayload);
       console.log(userData)
-      this.fullName = userData.fullName
+      this.fullName = userData.fullvmName
       this.matricule = userData.matricule
       this.position = userData.position
+      // Fetch requests by user ID
+      this.fetchRequestsByUserId(userData.id);
 
 
     }
   }
+
+  fetchRequestsByUserId(userId: string) {
+    this.requestService.getRequestsByUserId(userId).subscribe(
+      (data) => {
+        this.items = data;
+        this.filteredItems = [...this.items];
+        console.log('Requests fetched successfully:', data);
+      },
+      (error) => {
+        console.error('Error fetching requests:', error);
+      }
+    );
+  }
+
+  formatDate(date: string) {
+    return this.datePipe.transform(date, 'yyyy-MM-dd');
+  }
+
+  searchQuery: string = '';
 }

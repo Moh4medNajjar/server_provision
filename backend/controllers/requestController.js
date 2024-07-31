@@ -13,6 +13,19 @@ exports.createRequest = async (req, res) => {
     }
 };
 
+// Get all requests by user ID
+exports.getRequestsByUserId = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const requests = await Request.find({ requesterId: userId });
+        if (requests.length === 0) return res.status(404).json({ message: 'No requests found for this user' });
+        res.status(200).json(requests);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching requests', error });
+    }
+};
+
+
 // Get all requests
 exports.getRequests = async (req, res) => {
     try {
