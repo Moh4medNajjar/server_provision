@@ -18,7 +18,7 @@ const requestSchema = new mongoose.Schema({
     ram: { type: String, required: true },
     vcpu: { type: String, required: true },
     software_list: {type: [String], default: []},
-    status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' },
+    status: { type: String, enum: ['pending', 'approved', 'approvedByNetworkAdmin','approvedBySecurityAdmin', 'finished', 'rejected'], default: 'pending' },
     openPorts: {type: [String], default: []},
     hasPublicIP: { type: Boolean, default: false }
 });

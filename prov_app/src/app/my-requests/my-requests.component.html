@@ -19,7 +19,12 @@
     }
     @if(role === "GeneralSpecAdmin") {
       <div class="menu">
-        <p style="font-weight: bold;">{{this.role}}</p>
+        <p style="font-weight: bold;">General Specs Admin</p>
+      </div>
+    }
+    @if(role === "NetworkAdmin") {
+      <div class="menu">
+        <p style="font-weight: bold;">Network Admin</p>
       </div>
     }
   </div>
@@ -28,7 +33,7 @@
     <h3>My Requests</h3>
   }
   @if(role !== "") {
-    <h3>Incoming Requests ({{items.length}})</h3>
+    <h3>Incoming Requests </h3>
   }
   <div class="d-flex justify-content-between align-items-center my-4">
     <div class="top-table">

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from '../services/request.service';
 import { AuthService } from '../services/auth.service';
 import { DatePipe } from '@angular/common';
@@ -14,7 +14,7 @@ export class RequestDetailsComponent implements OnInit {
   requestId!: string;
   requestDetails: any;
 
-  constructor(private route: ActivatedRoute, private requestService: RequestService, private authService: AuthService, private datePipe: DatePipe) { }
+  constructor(private router: Router, private route: ActivatedRoute, private requestService: RequestService, private authService: AuthService, private datePipe: DatePipe) { }
   fullName = ""
   matricule = ""
   position = ""
@@ -50,7 +50,7 @@ export class RequestDetailsComponent implements OnInit {
     this.requestService.getRequestById(id).subscribe(
       response => {
         this.requestDetails = response;
-        console.log('Request Details:', this.requestDetails);
+        // console.log('Request Details:', this.requestDetails);
       },
       error => {
         console.error('Error fetching request details:', error);
@@ -86,8 +86,7 @@ export class RequestDetailsComponent implements OnInit {
     if (this.requestId) {
       this.requestService.rejectRequest(this.requestId).subscribe(
         response => {
-          console.log('Request rejected:', response);
-          // Handle success, e.g., show a message or navigate away
+          this.router.navigate(['/my-requests']);
         },
         error => {
           console.error('Error rejecting request:', error);

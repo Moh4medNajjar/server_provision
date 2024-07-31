@@ -1,5 +1,5 @@
 import { AuthService } from './auth.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -41,6 +41,16 @@ rejectRequest(requestId: string): Observable<any> {
   const token = localStorage.getItem('token');
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.patch(`${this.apiUrl}/${requestId}/reject`, {}, { headers });
+}
+
+getRequestsByStatus(status?: string): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  let params = new HttpParams();
+  if (status) {
+    params = params.set('status', status);
+  }
+  return this.http.get(this.apiUrl, { headers, params });
 }
 
 

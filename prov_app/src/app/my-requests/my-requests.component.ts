@@ -59,6 +59,8 @@ export class MyRequestsComponent {
   matricule = ""
   position = ""
   role = ""
+  approvedItems: any[] = [];
+
   ngOnInit() {
     const token = this.authService.getToken();
     if (token) {
@@ -72,6 +74,9 @@ export class MyRequestsComponent {
       if (this.role === "GeneralSpecAdmin") {
         this.fetchAllRequests()
       }
+      else if (this.role === "NetworkAdmin") {
+        this.fetchAllRequests()
+      }
       else {
         this.fetchRequestsByUserId(userData.id);
       }
@@ -81,12 +86,16 @@ export class MyRequestsComponent {
   }
 
 
+
   fetchAllRequests() {
     this.requestService.getRequests().subscribe(
       (data) => {
         this.items = data;
         this.filteredItems = [...this.items];
-        console.log('Requests fetched successfully:', data);
+        if(this.role === "NetworkAdmin"){
+          this.filteredItems = this.filteredItems.filter(item => item.status === 'approved');
+        }
+        // console.log('Requests fetched successfully:', data);
       },
       (error) => {
         console.error('Error fetching requests:', error);
@@ -99,7 +108,7 @@ export class MyRequestsComponent {
       (data) => {
         this.items = data;
         this.filteredItems = [...this.items];
-        console.log('Requests fetched successfully:', data);
+        // console.log('Requests fetched successfully:', data);
       },
       (error) => {
         console.error('Error fetching requests:', error);
