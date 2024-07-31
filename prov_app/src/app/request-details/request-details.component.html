@@ -25,17 +25,8 @@
   </div>
 
   @if(adminRole === "GeneralSpecAdmin") {
-    <p class="mb-4" style="color: orange;"> <i class="fa fa-bell me-2"></i> {{requestDetails.fullName}} has requested a server !</p>
+    <p class="mb-4" style="color: orange;"> <i class="fa fa-bell me-2"></i>{{requestDetails.fullName}}: {{requestDetails.position}},  (Matricule: {{ requestDetails.matricule}}) has made a server request !</p>
   }
-
-  <div class="my-5">
-    <h3 style="font-weight: 500; font-size: 20px; margin-bottom: 15px;">* Requester details</h3>
-    <div class="ms-4">
-      <p><span>Full name:</span>{{requestDetails.fullName}}</p>
-      <p><span>Matricule:</span>{{requestDetails.matricule}}</p>
-      <p><span>Position:</span>{{requestDetails.position}}</p>
-    </div>
-  </div>
 
   <div>
     <h3 style="font-weight: 500; font-size: 20px; margin-bottom: 15px;">* Request details</h3>
@@ -59,7 +50,7 @@
     <div>
       <div class="d-flex align-items-center justify-content-center mt-4">
         <button class="me-2 btn button-approve">Approve request</button>
-        <button class="btn button-reject">Reject request</button>
+        <button class="btn button-reject" (click)="rejectRequest()">Reject request</button>
       </div>
       <p class="text-center mt-1" style="font-size:12px">Approving will send this request to the network admin</p>
     </div>

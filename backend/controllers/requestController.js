@@ -136,3 +136,26 @@ exports.approveBySecurityAdmin = async (req, res) => {
         res.status(500).json({ message: 'Error approving request by SecurityAdmin', error });
     }
 };
+
+
+// Reject a request
+exports.rejectRequest = async (req, res) => {
+    try {
+        console.log('Reject request received for ID:', req.params.id);  // Debugging output
+
+        const request = await Request.findById(req.params.id);
+        if (!request) {
+            console.log('Request not found');
+            return res.status(404).json({ message: 'Request not found' });
+        }
+
+        request.status = 'rejected';
+        await request.save();
+        console.log('Request rejected:', request);  // Debugging output
+
+        res.status(200).json({ message: 'Request rejected successfully', request });
+    } catch (error) {
+        console.error('Error rejecting request:', error);  // Log error to server console
+        res.status(500).json({ message: 'Error rejecting request', error: error.message });
+    }
+};

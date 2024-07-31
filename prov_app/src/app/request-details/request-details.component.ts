@@ -81,4 +81,19 @@ export class RequestDetailsComponent implements OnInit {
       console.error('Failed to copy: ', err);
     });
   }
+
+  rejectRequest(): void {
+    if (this.requestId) {
+      this.requestService.rejectRequest(this.requestId).subscribe(
+        response => {
+          console.log('Request rejected:', response);
+          // Handle success, e.g., show a message or navigate away
+        },
+        error => {
+          console.error('Error rejecting request:', error);
+          // Handle error
+        }
+      );
+    }
+  }
 }

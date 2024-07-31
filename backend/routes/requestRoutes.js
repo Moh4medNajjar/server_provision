@@ -12,6 +12,7 @@ router.delete('/:id', authMiddleware, requestController.deleteRequest);
 
 router.get('/user/:userId', requestController.getRequestsByUserId);
 
+router.patch('/:id/reject', authMiddleware, requestController.rejectRequest);
 
 router.put('/:id/approve/general', authMiddleware, roleMiddleware('GeneralSpecAdmin'), requestController.approveByGeneralSpecAdmin);
 router.put('/:id/approve/network', authMiddleware, roleMiddleware('NetworkAdmin'), requestController.approveByNetworkAdmin);
