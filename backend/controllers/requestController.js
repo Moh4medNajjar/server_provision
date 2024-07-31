@@ -39,13 +39,27 @@ exports.getRequests = async (req, res) => {
 // Get a single request by ID
 exports.getRequestById = async (req, res) => {
     try {
+        // Validate the ID format if necessary (e.g., if using MongoDB ObjectId)
+        if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+            return res.status(400).json({ message: 'Invalid request ID format' });
+        }
+
+        // Find the request by ID
         const request = await Request.findById(req.params.id);
-        if (!request) return res.status(404).json({ message: 'Request not found' });
+        
+        // Check if the request was found
+        if (!request) {
+            return res.status(404).json({ message: 'Request not found' });
+        }
+        
+        // Return the found request
         res.status(200).json(request);
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching request', error });
+        console.error('Error fetching request:', error);
+        res.status(500).json({ message: 'Error fetching request', error: error.message });
     }
 };
+
 
 // Update a request by ID
 exports.updateRequest = async (req, res) => {

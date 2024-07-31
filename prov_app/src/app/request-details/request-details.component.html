@@ -6,7 +6,7 @@
       <div class="logo"></div>
       <h3>Provision App</h3>
     </div>
-    <p style="font-size:large; font-weight: bold; margin: 0">Mohamed Najjar</p>
+    <p style="font-size:large; font-weight: bold; margin: 0">{{fullName}}</p>
     <div class="menu">
       <a routerLink="/my-requests">My Requests</a>
       <a routerLink="/my-servers">My Servers</a>
@@ -16,33 +16,43 @@
 
   <h3 class="mb-4">Server Details</h3>
 
-  <div>
-    <h4>Requester details</h4>
+  <div class="my-5">
+    <h3 style="font-weight: 500; font-size: 20px; margin-bottom: 15px;">* Requester details</h3>
     <div class="ms-4">
-      <p><span>Full name:</span>Mohamed Najjar</p>
-      <p><span>Email address:</span>najjarmohamed443&#64;gmail.com</p>
-      <p><span>Matricule:</span>451287</p>
+      <p><span>Full name:</span>{{fullName}}</p>
+      <p><span>Email address:</span>{{email}}</p>
+      <p><span>Matricule:</span>{{matricule}}</p>
+      <p><span>Position:</span>{{position}}</p>
     </div>
   </div>
 
   <div>
-    <h4>Request details</h4>
+    <h3 style="font-weight: 500; font-size: 20px; margin-bottom: 15px;">* Request details</h3>
     <div class="ms-4">
-      <p><span>Server name:</span>Jenkins Server</p>
-      <p><span>Description:</span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora optio animi quo eum id eligendi, labore inventore? Fu</p>
-      <p><span>Operating system:</span>Red Hat Entreprise Linux 9</p>
-      <p><span>RAM:</span>8 GB</p>
-      <p><span>vCPUs:</span>8 GB</p>
-      <p><span>Disk space:</span>100 GB</p>
-      <p><span>Desired creation date:</span>24/07/2024, 22:08 UTC</p>
+      <p><span>Server name:</span>{{requestDetails.vmName}}</p>
+      <p><span>Description:</span>{{requestDetails.description}}</p>
+      <p><span>Environment type:</span> {{ requestDetails.environment_type | titlecase }}</p>
+      <p><span>Operating system:</span>{{requestDetails.operating_system}}</p>
+      <p><span>RAM:</span>{{requestDetails.ram}}</p>
+      <p><span>vCPUs:</span>{{requestDetails.vcpu}}</p>
+      <p><span>Disk space:</span>{{requestDetails.disk_space}}</p>
+      <p><span>Software list:</span>{{requestDetails.software_list}}</p>
+      <p><span>Open ports:</span>{{requestDetails.openPorts}}</p>
+      <p><span>Has public IP:</span>{{requestDetails.hasPublicIP}}</p>
+      <p><span>Desired creation date:</span>{{formatDate(requestDetails.desired_start_date)}}</p>
+      <p><span>Status:</span>{{requestDetails.status | titlecase}}</p>
     </div>
   </div>
 
-  <div class="d-flex align-items-center justify-content-center mt-4">
-    <button class="me-2 btn button-approve">Approve request</button>
-    <button class="btn button-reject">Reject request</button>
-  </div>
-  <p class="text-center mt-1" style="font-size:12px">Approving will send this request to the network admin</p>
+  @if(role != "") {
+    <div>
+      <div class="d-flex align-items-center justify-content-center mt-4">
+        <button class="me-2 btn button-approve">Approve request</button>
+        <button class="btn button-reject">Reject request</button>
+      </div>
+      <p class="text-center mt-1" style="font-size:12px">Approving will send this request to the network admin</p>
+    </div>
+  }
 
 
 </div>

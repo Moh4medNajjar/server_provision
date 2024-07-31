@@ -56,7 +56,7 @@
       <tbody>
         @for (item of filteredItems; track item) {
           <tr [ngClass]="{ 'blue-row': filteredItems.indexOf(item) % 2 === 0, 'red-row': filteredItems.indexOf(item) % 2 !== 0 }">
-            <td>{{ filteredItems.indexOf(item) + 1 }}</td> <!-- Index Display -->
+            <td>{{ filteredItems.indexOf(item) + 1 }}</td>
             <td>{{ item.vmName }}</td>
             <td>{{ formatDate(item.desired_start_date) }}</td>
             <td>
@@ -64,7 +64,7 @@
               {{ item.status }}
             </td>
             <td>
-              <i class="fa-solid fa-arrow-up-right-from-square me-3"></i>
+              <i class="fa-solid fa-arrow-up-right-from-square me-3" [routerLink]="['/request-details', item._id]"></i>
               <i class="fa-solid fa-trash-can"></i>
             </td>
           </tr>

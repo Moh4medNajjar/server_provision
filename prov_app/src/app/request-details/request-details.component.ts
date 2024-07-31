@@ -1,11 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { RequestService } from '../services/request.service';
+import { AuthService } from '../services/auth.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-request-details',
   templateUrl: './request-details.component.html',
   styleUrl: './request-details.component.scss'
 })
-export class RequestDetailsComponent {
+export class RequestDetailsComponent implements OnInit {
+
+  requestId!: string;
+  requestDetails: any;
+
+  constructor(private route: ActivatedRoute, private requestService: RequestService, private authService: AuthService, private datePipe: DatePipe) { }
+  fullName = ""
+  matricule = ""
+  position = ""
+  email = ""
+  role = ""
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.requestId = params.get('id')!;
+      this.fetchRequestDetails(this.requestId);
+    });
+
+    const token = this.authService.getToken();
+    if (token) {
+      // Extract user data (consider using a secure backend API instead)
+      const decodedPayload = atob(token.split('.')[1]);
+      const userData = JSON.parse(decodedPayload);
+      console.log(userData)
+      this.fullName = userData.fullName
+      this.matricule = userData.matricule
+      this.position = userData.position
+      this.email = userData.email
+      this.role = userData.role
+    }
+  }
+
+  fetchRequestDetails(id: string) {
+    this.requestService.getRequestById(id).subscribe(
+      response => {
+        this.requestDetails = response;
+        console.log('Request Details:', this.requestDetails);
+      },
+      error => {
+        console.error('Error fetching request details:', error);
+      }
+    );
+  }
+
+  formatDate(date: string) {
+    return this.datePipe.transform(date, 'yyyy-MM-dd');
+  }
+
+  //**************************************************************/
   password = 'password here';
   hidePassword = true;
   copySuccess = false;

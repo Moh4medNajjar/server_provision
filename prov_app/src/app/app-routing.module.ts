@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'my-servers', component: MyServersComponent },
   { path: 'new-request', component: NewRequestComponent },
   { path: 'server-details', component: ServerDetailsComponent },
-  { path: 'request-details', component: RequestDetailsComponent },
+  { path: 'request-details/:id', component: RequestDetailsComponent },
   { path: 'users-list', component: UsersListComponent },
   { path: 'admins-list', component: AdminsListComponent },
   { path: 'user-details', component: AdminDetailsComponent },

@@ -13,20 +13,22 @@ export class RequestService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
 createRequest(requestData: any): Observable<any> {
-  // Get the token from the authService
   const token = this.authService.getToken();
 
-  // Create the headers with the Authorization token
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${token}`
   });
-
-  // Return the Observable from the HTTP POST request
   return this.http.post<any>(this.apiUrl, requestData, { headers });
 }
 
 getRequestsByUserId(userId: string): Observable<any> {
   return this.http.get(`${this.apiUrl}/user/${userId}`);
+}
+
+getRequestById(id: string): Observable<any> {
+  const token = localStorage.getItem('token'); // Adjust based on where you store the token
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.get<any>(`${this.apiUrl}/${id}`, { headers });
 }
 
 }
