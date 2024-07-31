@@ -2,6 +2,7 @@ import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { RequestService } from '../services/request.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-request',
@@ -9,7 +10,7 @@ import { RequestService } from '../services/request.service';
   styleUrls: ['./new-request.component.scss']
 })
 export class NewRequestComponent implements OnInit {
-  constructor(private requestService: RequestService, private authService: AuthService) {}
+  constructor(private requestService: RequestService, private authService: AuthService, private router: Router) {}
 
   formData = {
     requesterId: '',
@@ -47,12 +48,10 @@ export class NewRequestComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      // Convert hasPublicIP to boolean if it's a string
       if (typeof this.formData.hasPublicIP === 'string') {
         this.formData.hasPublicIP = this.formData.hasPublicIP === 'yes';
       }
 
-      // Ensure desired_start_date is in ISO format
       this.formData.desired_start_date = new Date(this.formData.desired_start_date).toISOString();
       console.log(this.formData)
 
@@ -61,6 +60,7 @@ export class NewRequestComponent implements OnInit {
           console.log('Request successfully created:', response);
           this.successMessage = 'Request submitted with success and is under review by our admins';
           form.resetForm();
+          this.router.navigate(['/my-requests']);
 
           setTimeout(() => {
             this.successMessage = null;

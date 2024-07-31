@@ -24,7 +24,7 @@ export class MyRequestsComponent {
       } else if (this.sortColumn === 'desired_start_date') {
         comparison = new Date(b.desired_start_date).getTime() - new Date(a.desired_start_date).getTime();
       } else if (this.sortColumn === 'status') {
-        const statusOrder: { [key: string]: number } = { 'Approved': 1, 'Pending': 2, 'Rejected': 3 };
+        const statusOrder: { [key: string]: number } = { 'approved': 1, 'pending': 2, 'rejected': 3 };
         comparison = (statusOrder[a.status as keyof typeof statusOrder] - statusOrder[b.status as keyof typeof statusOrder]);
       }
       return this.sortDirection ? comparison : -comparison;
@@ -66,7 +66,7 @@ export class MyRequestsComponent {
       const decodedPayload = atob(token.split('.')[1]);
       const userData = JSON.parse(decodedPayload);
       console.log(userData)
-      this.fullName = userData.fullvmName
+      this.fullName = userData.fullName
       this.matricule = userData.matricule
       this.position = userData.position
       // Fetch requests by user ID
