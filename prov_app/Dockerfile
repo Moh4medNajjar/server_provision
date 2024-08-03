@@ -1,8 +1,6 @@
-FROM node:18
+FROM node:18 AS build
 
 WORKDIR /app
-
-RUN npm install -g @angular/cli
 
 COPY package*.json ./
 
@@ -10,6 +8,12 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 4200
+RUN npm run build --prod
 
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+FROM httpd:2.4
+
+COPY --from=build /app/dist/your-angular-app-name /usr/local/apache2/htdocs/
+
+EXPOSE 80
+
+CMD ["httpd-foreground"]
