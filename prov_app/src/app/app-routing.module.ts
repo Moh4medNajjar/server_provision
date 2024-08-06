@@ -13,8 +13,9 @@ import { AdminDetailsComponent } from './admin-details/admin-details.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 
 const routes: Routes = [
-  {path:"login", component: LoginComponent},
-  {path:"signup", component: SignupComponent},
+  { path: '', redirectTo: '/signup', pathMatch: 'full' }, 
+  { path:"login", component: LoginComponent},
+  { path:"signup", component: SignupComponent},
   { path: 'my-requests', component: MyRequestsComponent },
   { path: 'my-servers', component: MyServersComponent },
   { path: 'new-request', component: NewRequestComponent },
