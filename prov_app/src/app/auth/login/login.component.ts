@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
-      // email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       matricule: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
     });
