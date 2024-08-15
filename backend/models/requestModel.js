@@ -17,6 +17,10 @@ const requestSchema = new mongoose.Schema({
     disk_space: { type: String, required: true },
     ram: { type: String, required: true },
     vcpu: { type: String, required: true },
+    /***********************************************/ 
+    private_ip: { type: String, required: false },
+    subnet_mask: { type: String, required: false },
+    /***********************************************/ 
     software_list: {type: [String], default: []},
     status: { type: String, enum: ['pending', 'approved', 'approvedByNetworkAdmin','approvedBySecurityAdmin', 'finished', 'rejected'], default: 'pending' },
     openPorts: {type: [String], default: []},

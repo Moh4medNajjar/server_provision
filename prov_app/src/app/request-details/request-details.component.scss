@@ -207,3 +207,8 @@ i {
   font-weight: 500;
 
 }
+input::placeholder {
+  color: rgba(255, 255, 255, 0.478);
+  opacity: 1;
+}
+
