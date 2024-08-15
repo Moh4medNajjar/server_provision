@@ -20,7 +20,7 @@ const requestSchema = new mongoose.Schema({
     software_list: {type: [String], default: []},
     status: { type: String, enum: ['pending', 'approved', 'approvedByNetworkAdmin','approvedBySecurityAdmin', 'finished', 'rejected'], default: 'pending' },
     openPorts: {type: [String], default: []},
-    hasPublicIP: { type: Boolean, default: false }
+    hasPublicIP: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model('Request', requestSchema);

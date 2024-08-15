@@ -19,6 +19,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 import { DatePipe } from '@angular/common';
+import { AnsweredRequestsComponent } from './answered-requests/answered-requests.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { DatePipe } from '@angular/common';
     UsersListComponent,
     AdminsListComponent,
     AdminDetailsComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    AnsweredRequestsComponent
   ],
   imports: [
     BrowserModule,

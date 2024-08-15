@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { RequestService } from '../services/request.service';
 import { DatePipe } from '@angular/common';
-
 @Component({
-  selector: 'app-my-requests',
-  templateUrl: './my-requests.component.html',
-  styleUrl: './my-requests.component.scss'
+  selector: 'app-answered-requests',
+  templateUrl: './answered-requests.component.html',
+  styleUrl: './answered-requests.component.scss'
 })
-export class MyRequestsComponent {
+export class AnsweredRequestsComponent {
   constructor(private authService: AuthService, private requestService: RequestService, private datePipe: DatePipe ) { }
 
   sortColumn: string = 'vmName';
@@ -93,11 +92,12 @@ export class MyRequestsComponent {
         this.items = data;
         this.filteredItems = [...this.items];
         if(this.role === "GeneralSpecAdmin"){
-          this.filteredItems = this.filteredItems.filter(item => item.status === 'pending');
+          this.filteredItems = this.filteredItems.filter(item => item.status === 'rejected' || item.status === 'approved');
         }
         if(this.role === "NetworkAdmin"){
           this.filteredItems = this.filteredItems.filter(item => item.status === 'approved');
         }
+        // console.log('Requests fetched successfully:', data);
       },
       (error) => {
         console.error('Error fetching requests:', error);
@@ -110,6 +110,7 @@ export class MyRequestsComponent {
       (data) => {
         this.items = data;
         this.filteredItems = [...this.items];
+        // console.log('Requests fetched successfully:', data);
       },
       (error) => {
         console.error('Error fetching requests:', error);

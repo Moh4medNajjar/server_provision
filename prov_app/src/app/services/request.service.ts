@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RequestService {
 
-  private apiUrl = 'http://192.168.1.212:3000/api/requests'; // Replace with your API URL
+  private apiUrl = 'http://localhost:3000/api/requests'; 
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 

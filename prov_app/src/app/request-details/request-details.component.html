@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  @if(adminRole === "GeneralSpecsAdmin") {
+  @if(adminRole === "GeneralSpecAdmin") {
     <div>
       <div class="d-flex align-items-center justify-content-center mt-4">
         <button class="me-2 btn button-approve">Approve request</button>
@@ -63,7 +63,7 @@
       <p class="text-center mt-1" style="font-size:12px">Approving will send this request to the network admin</p>
     </div>
   }
-  
+
   @if (adminRole === 'NetworkAdmin') {
     <div class="form-group" style="width: 600px">
       <label for="cidr">Cidr Range</label>
