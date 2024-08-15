@@ -21,6 +21,6 @@ const requestSchema = new mongoose.Schema({
     status: { type: String, enum: ['pending', 'approved', 'approvedByNetworkAdmin','approvedBySecurityAdmin', 'finished', 'rejected'], default: 'pending' },
     openPorts: {type: [String], default: []},
     hasPublicIP: { type: Boolean, default: false },
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Request', requestSchema);
