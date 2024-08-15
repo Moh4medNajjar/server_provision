@@ -8,6 +8,7 @@
     </div>
     <div>
       <p class="text-center" style="font-size:large; font-weight: bold; margin: 0">{{adminName}}</p>
+      <p class="text-center" style="font-size:large; font-weight: bold; margin: 0">{{adminRole}}</p>
       <p class="text-center" style="font-size:large; font-weight: bold; margin: 0">{{adminMatricule}}</p>
     </div>
     @if(adminRole === ""){
@@ -17,9 +18,12 @@
         <a href="">My Profile</a>
       </div>
     }
+
     @if(adminRole === "GeneralSpecAdmin") {
       <div class="menu">
-        <p style="font-weight: bold;">General Specs Admin</p>
+        <a routerLink="/my-requests">Incoming requests</a>
+        <a routerLink="/answered-requests">Answered requests</a>
+        <a routerLink="/my-servers">Logout</a>
       </div>
     }
     @if(adminRole === "NetworkAdmin") {
@@ -31,6 +35,16 @@
 
   @if(adminRole !== "") {
     <p class="mb-4" style="color: orange;"> <i class="fa fa-bell me-2"></i>{{requestDetails.fullName}}: {{requestDetails.position}},  (Matricule: {{ requestDetails.matricule}}) has made a server request !</p>
+  }
+  @if(adminRole === "GeneralSpecAdmin" && requestDetails.status === "approved" ) {
+    <div>
+      <p class="mt-1" style="font-size:12px; color: rgb(117, 190, 8); font-weight: 500;">Request approved by General specs admins !</p>
+    </div>
+  }
+  @if(adminRole === "GeneralSpecAdmin" && requestDetails.status === "rejected" ) {
+    <div>
+      <p class="mt-1" style="font-size:12px; color: rgb(255, 47, 47); font-weight: 500;">Request rejected by General specs admins !</p>
+    </div>
   }
   @if(adminRole === "NetworkAdmin") {
     <p class="mb-4" style="color: rgb(6, 216, 10);">This request was approved by General specs admin and is waiting for CIDR range allocation.</p>
@@ -54,7 +68,7 @@
     </div>
   </div>
 
-  @if(adminRole === "GeneralSpecAdmin") {
+  @if(adminRole === "GeneralSpecAdmin" && requestDetails.status === "pending" ) {
     <div>
       <div class="d-flex align-items-center justify-content-center mt-4">
         <button class="me-2 btn button-approve">Approve request</button>
@@ -63,6 +77,8 @@
       <p class="text-center mt-1" style="font-size:12px">Approving will send this request to the network admin</p>
     </div>
   }
+
+
 
   @if (adminRole === 'NetworkAdmin') {
     <div class="form-group" style="width: 600px">
