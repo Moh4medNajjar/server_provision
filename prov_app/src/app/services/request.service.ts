@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RequestService {
 
-  private apiUrl = 'http://localhost:3000/api/requests'; 
+  private apiUrl = 'http://localhost:3000/api/requests';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -41,6 +41,12 @@ rejectRequest(requestId: string): Observable<any> {
   const token = localStorage.getItem('token');
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.patch(`${this.apiUrl}/${requestId}/reject`, {}, { headers });
+}
+
+approveRequest(requestId: string): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.put(`${this.apiUrl}/${requestId}/approve/general`, {}, { headers });
 }
 
 getRequestsByStatus(status?: string): Observable<any> {

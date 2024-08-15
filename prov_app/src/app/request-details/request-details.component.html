@@ -34,14 +34,14 @@
   </div>
 
   @if(adminRole !== "") {
-    <p class="mb-4" style="color: orange;"> <i class="fa fa-bell me-2"></i>{{requestDetails.fullName}}: {{requestDetails.position}},  (Matricule: {{ requestDetails.matricule}}) has made a server request !</p>
+    <p class="mb-4" style="color: orange;"> <i class="fa fa-bell me-2"></i>{{requestDetails?.fullName}}: {{requestDetails?.position}},  (Matricule: {{ requestDetails?.matricule}}) has made a server request !</p>
   }
-  @if(adminRole === "GeneralSpecAdmin" && requestDetails.status === "approved" ) {
+  @if(adminRole === "GeneralSpecAdmin" && requestDetails?.status === "approved" ) {
     <div>
       <p class="mt-1" style="font-size:12px; color: rgb(117, 190, 8); font-weight: 500;">Request approved by General specs admins !</p>
     </div>
   }
-  @if(adminRole === "GeneralSpecAdmin" && requestDetails.status === "rejected" ) {
+  @if(adminRole === "GeneralSpecAdmin" && requestDetails?.status === "rejected" ) {
     <div>
       <p class="mt-1" style="font-size:12px; color: rgb(255, 47, 47); font-weight: 500;">Request rejected by General specs admins !</p>
     </div>
@@ -53,25 +53,25 @@
   <div>
     <h3 style="font-weight: 500; font-size: 20px; margin-bottom: 15px;">* Request details</h3>
     <div class="ms-4">
-      <p><span>Server name:</span>{{requestDetails.vmName}}</p>
-      <p><span>Description:</span>{{requestDetails.description}}</p>
-      <p><span>Environment type:</span> {{ requestDetails.environment_type | titlecase }}</p>
-      <p><span>Operating system:</span>{{requestDetails.operating_system}}</p>
-      <p><span>RAM:</span>{{requestDetails.ram}}</p>
-      <p><span>vCPUs:</span>{{requestDetails.vcpu}}</p>
-      <p><span>Disk space:</span>{{requestDetails.disk_space}}</p>
-      <p><span>Software list:</span>{{requestDetails.software_list}}</p>
-      <p><span>Open ports:</span>{{requestDetails.openPorts}}</p>
-      <p><span>Has public IP:</span>{{requestDetails.hasPublicIP}}</p>
-      <p><span>Desired creation date:</span>{{formatDate(requestDetails.desired_start_date)}}</p>
-      <p><span>Status:</span>{{requestDetails.status | titlecase}}</p>
+      <p><span>Server name:</span>{{requestDetails?.vmName}}</p>
+      <p><span>Description:</span>{{requestDetails?.description}}</p>
+      <p><span>Environment type:</span> {{ requestDetails?.environment_type | titlecase }}</p>
+      <p><span>Operating system:</span>{{requestDetails?.operating_system}}</p>
+      <p><span>RAM:</span>{{requestDetails?.ram}}</p>
+      <p><span>vCPUs:</span>{{requestDetails?.vcpu}}</p>
+      <p><span>Disk space:</span>{{requestDetails?.disk_space}}</p>
+      <p><span>Software list:</span>{{requestDetails?.software_list}}</p>
+      <p><span>Open ports:</span>{{requestDetails?.openPorts}}</p>
+      <p><span>Has public IP:</span>{{requestDetails?.hasPublicIP}}</p>
+      <p><span>Desired creation date:</span>{{formatDate(requestDetails?.desired_start_date)}}</p>
+      <p><span>Status:</span>{{requestDetails?.status | titlecase}}</p>
     </div>
   </div>
 
-  @if(adminRole === "GeneralSpecAdmin" && requestDetails.status === "pending" ) {
+  @if(adminRole === "GeneralSpecAdmin" && requestDetails?.status === "pending" ) {
     <div>
       <div class="d-flex align-items-center justify-content-center mt-4">
-        <button class="me-2 btn button-approve">Approve request</button>
+        <button class="me-2 btn button-approve" (click)="approveRequest()">Approve request</button>
         <button class="btn button-reject" (click)="rejectRequest()">Reject request</button>
       </div>
       <p class="text-center mt-1" style="font-size:12px">Approving will send this request to the network admin</p>

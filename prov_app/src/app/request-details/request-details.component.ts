@@ -95,4 +95,18 @@ export class RequestDetailsComponent implements OnInit {
       );
     }
   }
+
+  approveRequest(): void {
+    if (this.requestId) {
+      this.requestService.approveRequest(this.requestId).subscribe(
+        response => {
+          this.router.navigate(['/my-requests']);
+        },
+        error => {
+          console.error('Error approving request:', error);
+          // Handle error
+        }
+      );
+    }
+  }
 }

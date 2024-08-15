@@ -89,11 +89,8 @@ exports.approveByGeneralSpecAdmin = async (req, res) => {
         const request = await Request.findById(req.params.id);
         if (!request) return res.status(404).json({ message: 'Request not found' });
         
-        request.status = 'Approved by GeneralSpecAdmin';
+        request.status = 'approved';
         await request.save();
-        
-        // Notify NetworkAdmin
-        // (You may add notification logic here)
 
         res.status(200).json({ message: 'Request approved by GeneralSpecAdmin', request });
     } catch (error) {
