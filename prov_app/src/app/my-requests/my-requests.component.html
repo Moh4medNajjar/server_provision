@@ -1,4 +1,4 @@
-<div class="container-fluid" style="height: 100%;">
+<div class="container-fluid" style="height: max(100vh);">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <div class="header mb-5">
@@ -8,7 +8,7 @@
     </div>
     <div style="display:flex; align-items: center; flex-direction: column;">
       <p class="text-center" style="font-size:large; font-weight: bold; margin: 0">{{ fullName }}</p>
-      <p style="font-weight: bold; margin:0">General Specs Admin</p>
+      <p style="font-weight: bold; margin:0">{{role}}</p>
       <p class="text-center" style="font-size:large; font-weight: bold; margin: 0">Matricule: {{ matricule }}</p>
     </div>
     @if(role === ""){
@@ -55,7 +55,7 @@
     }
   </div>
 
-  <div class="table-container" style="height: 491px; overflow-y: scroll;">
+  <div class="table-container" style="height: 475px; overflow-y: scroll;">
     <table>
       <thead>
         <tr>
